@@ -42,11 +42,17 @@ class HomeViewController: UIViewController {
         timelineTableView.frame = view.frame
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+    }
+    
     @objc
     private func didTapProfile(){
         let vc = ProfileViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
+
     
 
 
