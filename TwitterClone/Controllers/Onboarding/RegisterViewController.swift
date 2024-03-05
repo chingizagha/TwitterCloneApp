@@ -1,0 +1,147 @@
+//
+//  RegisterViewController.swift
+//  TwitterClone
+//
+//  Created by Chingiz on 05.03.24.
+//
+
+import UIKit
+import Combine
+
+class RegisterViewController: UIViewController {
+    
+    private var viewModel = AuthenticationViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
+    
+    private let registerTitlelabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .systemFont(ofSize: 32, weight: .bold)
+        label.text = "Create your account"
+        return label
+    }()
+    
+    let emailTextField: UITextField = {
+        let tf = UITextField()
+        tf.textColor = .label
+        tf.font = .systemFont(ofSize: 17, weight: .semibold)
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.layer.cornerRadius = 5
+        tf.keyboardType = .emailAddress
+        tf.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        return tf
+    }()
+    
+    let passwordTextField: UITextField = {
+        let tf = UITextField()
+        tf.textColor = .label
+        tf.font = .systemFont(ofSize: 17, weight: .semibold)
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.layer.cornerRadius = 5
+        tf.textContentType = .oneTimeCode
+        tf.isSecureTextEntry = true
+        tf.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedString.Key.foregroundColor: UIColor.gray])
+        return tf
+    }()
+    
+    private let registerButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Create account", for: .normal)
+        button.backgroundColor = UIColor(red: 29/255, green: 161/255, blue: 242/255, alpha: 1)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        button.layer.cornerRadius = 25
+        button.layer.masksToBounds = true
+        button.tintColor = .white
+        button.isEnabled = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .systemBackground
+        
+        view.addSubviews(registerTitlelabel, emailTextField,
+                         passwordTextField, registerButton
+        )
+        registerButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
+        addConstraints()
+        //view.addGestureRecognizer(UIGestureRecognizer(target: self, action: #selector(didTapDismiss)))
+        bindViews()
+    }
+    
+
+    @objc private func didTapRegister() {
+        viewModel.createUser()
+    }
+    
+    private func bindViews() {
+        emailTextField.addTarget(self, action: #selector(didChangeEmailField), for: .editingChanged)
+        passwordTextField.addTarget(self, action: #selector(didChangePasswordField), for: .editingChanged)
+        viewModel.$isAuthenticationFormValid.sink { [weak self] validationState in
+            self?.registerButton.isEnabled = validationState
+        }
+        .store(in: &subscriptions)
+        
+        viewModel.$user.sink { [weak self] user in
+            guard user != nil else {return}
+            guard let vc = self?.navigationController?.viewControllers.first as? OnboardingViewController else {return}
+            vc.dismiss(animated: true)
+        }
+        .store(in: &subscriptions)
+        
+        viewModel.$error.sink{ [weak self] errorString in
+            guard let error = errorString else {return}
+            self?.presentAlert(with: error)
+        }
+        .store(in: &subscriptions)
+    }
+    
+    private func presentAlert(with error: String){
+        let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+        let okayButton = UIAlertAction(title: "Ok", style: .default)
+        alert.addAction(okayButton)
+        present(alert, animated: true)
+    }
+    
+    @objc
+    private func didChangeEmailField() {
+        viewModel.email = emailTextField.text
+        viewModel.validateRegistrationForm()
+    }
+    
+    @objc
+    private func didChangePasswordField() {
+        viewModel.password = passwordTextField.text
+        viewModel.validateRegistrationForm()
+    }
+    
+    private func addConstraints() {
+        NSLayoutConstraint.activate([
+            registerTitlelabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            registerTitlelabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            
+            emailTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            emailTextField.topAnchor.constraint(equalTo: registerTitlelabel.bottomAnchor, constant: 20),
+            emailTextField.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
+            emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            emailTextField.heightAnchor.constraint(equalToConstant: 60),
+            
+            passwordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 15),
+            passwordTextField.widthAnchor.constraint(equalToConstant: view.frame.width - 40),
+            passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            passwordTextField.heightAnchor.constraint(equalToConstant: 60),
+            
+            registerButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            registerButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 20),
+            registerButton.widthAnchor.constraint(equalToConstant: 180),
+            registerButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    
+    
+
+}

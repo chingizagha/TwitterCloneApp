@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Firebase
 
 class HomeViewController: UIViewController {
     
@@ -21,6 +23,14 @@ class HomeViewController: UIViewController {
         
         let profileImage = UIImage(systemName: "person")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: profileImage, style: .plain, target: self, action: #selector(didTapProfile))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "rectangle.portrait.and.arrow.right"), style: .plain, target: self, action: #selector(didTapSignOut))
+    }
+    
+    @objc
+    private func didTapSignOut() {
+        try? Auth.auth().signOut()
+        handleAuthentication()
     }
     
     private let timelineTableView: UITableView = {
@@ -42,9 +52,19 @@ class HomeViewController: UIViewController {
         timelineTableView.frame = view.frame
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
+        handleAuthentication()
+    }
+    
+    private func handleAuthentication() {
+        if Auth.auth().currentUser == nil {
+            let vc = UINavigationController(rootViewController: OnboardingViewController())
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false)
+        }
     }
     
     @objc
