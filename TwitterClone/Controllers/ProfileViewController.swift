@@ -6,11 +6,18 @@
 //
 
 import UIKit
+import Combine
 
 class ProfileViewController: UIViewController {
     
+    private var viewModel = ProfileViewViewModel()
+    
     private var isStatusBarHidden: Bool = true
     
+    private lazy var headerView = ProfileTableViewHeader(frame: CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: 380))
+    
+    private var subscriptions: Set<AnyCancellable> = []
+
     private let statusBar: UIView = {
         let view = UIView()
         view.backgroundColor = .systemBackground
@@ -32,7 +39,6 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationItem.title = "Profile"
         
-        let headerView = ProfileTableViewHeader(frame: CGRect(x: 0, y: 0, width: profileTableView.frame.width, height: 380))
         
         view.addSubviews(profileTableView, statusBar)
         
@@ -42,6 +48,12 @@ class ProfileViewController: UIViewController {
         profileTableView.contentInsetAdjustmentBehavior = .never
         navigationController?.navigationBar.isHidden = true
         addConstraints()
+        bindViews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.retreiveUser()
     }
     
     private func addConstraints(){
@@ -56,6 +68,14 @@ class ProfileViewController: UIViewController {
             statusBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             statusBar.heightAnchor.constraint(equalToConstant: view.bounds.height > 800 ? 40 : 20)
         ])
+    }
+    
+    private func bindViews(){
+        viewModel.$user.sink { [weak self] user in
+            guard let user = user else {return}
+            self?.headerView.configure(user: user)
+        }
+        .store(in: &subscriptions)
     }
 }
 

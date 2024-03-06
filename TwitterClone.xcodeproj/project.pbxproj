@@ -35,6 +35,17 @@
 		72620C4F2B95D0E1008D0481 /* TweetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72620C4E2B95D0E1008D0481 /* TweetTableViewCell.swift */; };
 		72620C522B95D2C2008D0481 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72620C512B95D2C2008D0481 /* Extensions.swift */; };
 		72AD2D3A2B95EF1A00611832 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AD2D392B95EF1A00611832 /* ProfileViewController.swift */; };
+		72E536422B9869E2005B7646 /* TwitterUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536412B9869E2005B7646 /* TwitterUser.swift */; };
+		72E536442B986A7F005B7646 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536432B986A7F005B7646 /* DatabaseManager.swift */; };
+		72E536462B9873FE005B7646 /* HomeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536452B9873FE005B7646 /* HomeViewViewModel.swift */; };
+		72E536482B98772C005B7646 /* ProfileDataFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536472B98772C005B7646 /* ProfileDataFormViewController.swift */; };
+		72E5364A2B98780C005B7646 /* ProfileDataFormViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536492B98780C005B7646 /* ProfileDataFormViewViewModel.swift */; };
+		72E5364C2B9893D0005B7646 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E5364B2B9893D0005B7646 /* StorageManager.swift */; };
+		72E5364E2B989E7D005B7646 /* ProfileViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E5364D2B989E7D005B7646 /* ProfileViewViewModel.swift */; };
+		72E536512B98A254005B7646 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 72E536502B98A254005B7646 /* SDWebImage */; };
+		72E536562B98BD94005B7646 /* TweetComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536552B98BD94005B7646 /* TweetComposeViewController.swift */; };
+		72E536582B98C153005B7646 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536572B98C153005B7646 /* Tweet.swift */; };
+		72E5365A2B98C1CC005B7646 /* TweetComposeViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72E536592B98C1CC005B7646 /* TweetComposeViewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +70,16 @@
 		72620C4E2B95D0E1008D0481 /* TweetTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetTableViewCell.swift; sourceTree = "<group>"; };
 		72620C512B95D2C2008D0481 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		72AD2D392B95EF1A00611832 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		72E536412B9869E2005B7646 /* TwitterUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterUser.swift; sourceTree = "<group>"; };
+		72E536432B986A7F005B7646 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		72E536452B9873FE005B7646 /* HomeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewViewModel.swift; sourceTree = "<group>"; };
+		72E536472B98772C005B7646 /* ProfileDataFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataFormViewController.swift; sourceTree = "<group>"; };
+		72E536492B98780C005B7646 /* ProfileDataFormViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDataFormViewViewModel.swift; sourceTree = "<group>"; };
+		72E5364B2B9893D0005B7646 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		72E5364D2B989E7D005B7646 /* ProfileViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewViewModel.swift; sourceTree = "<group>"; };
+		72E536552B98BD94005B7646 /* TweetComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetComposeViewController.swift; sourceTree = "<group>"; };
+		72E536572B98C153005B7646 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
+		72E536592B98C1CC005B7646 /* TweetComposeViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetComposeViewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +91,7 @@
 				725F1C4A2B975A8A0015D130 /* FirebaseFirestore in Frameworks */,
 				725F1C4E2B975A8A0015D130 /* FirebaseFirestoreSwift in Frameworks */,
 				725F1C3E2B975A8A0015D130 /* FirebaseAuth in Frameworks */,
+				72E536512B98A254005B7646 /* SDWebImage in Frameworks */,
 				725F1C462B975A8A0015D130 /* FirebaseDatabaseSwift in Frameworks */,
 				725F1C662B975A8A0015D130 /* FirebaseStorageCombine-Community in Frameworks */,
 				725F1C402B975A8A0015D130 /* FirebaseAuthCombine-Community in Frameworks */,
@@ -101,12 +123,12 @@
 		7236A18C2B9338AC002691CD /* TwitterClone */ = {
 			isa = PBXGroup;
 			children = (
+				72E536402B9869C9005B7646 /* Models */,
 				725F1C6F2B97728B0015D130 /* Networking */,
-				725F1C6C2B976B240015D130 /* ViewModels */,
 				72620C502B95D299008D0481 /* Managers */,
+				725F1C6C2B976B240015D130 /* ViewModels */,
 				72620C4D2B95D0C4008D0481 /* Views */,
 				72620C432B95CEE7008D0481 /* Controllers */,
-				7236A1912B9338AC002691CD /* MainTabViewController.swift */,
 				7236A19E2B9338AD002691CD /* Info.plist */,
 			);
 			path = TwitterClone;
@@ -126,6 +148,10 @@
 			isa = PBXGroup;
 			children = (
 				725F1C6D2B976B350015D130 /* AuthenticationViewViewModel.swift */,
+				72E536452B9873FE005B7646 /* HomeViewViewModel.swift */,
+				72E536492B98780C005B7646 /* ProfileDataFormViewViewModel.swift */,
+				72E5364D2B989E7D005B7646 /* ProfileViewViewModel.swift */,
+				72E536592B98C1CC005B7646 /* TweetComposeViewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -134,6 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				725F1C702B97729B0015D130 /* AuthManager.swift */,
+				72E536432B986A7F005B7646 /* DatabaseManager.swift */,
+				72E5364B2B9893D0005B7646 /* StorageManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -151,6 +179,7 @@
 		72620C442B95CEEF008D0481 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7236A1912B9338AC002691CD /* MainTabViewController.swift */,
 				72620C452B95CF08008D0481 /* HomeViewController.swift */,
 				72620C472B95CF15008D0481 /* SearchViewController.swift */,
 				72620C492B95CF21008D0481 /* NotificationViewController.swift */,
@@ -184,8 +213,19 @@
 			isa = PBXGroup;
 			children = (
 				72AD2D392B95EF1A00611832 /* ProfileViewController.swift */,
+				72E536472B98772C005B7646 /* ProfileDataFormViewController.swift */,
+				72E536552B98BD94005B7646 /* TweetComposeViewController.swift */,
 			);
 			name = Other;
+			sourceTree = "<group>";
+		};
+		72E536402B9869C9005B7646 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				72E536412B9869E2005B7646 /* TwitterUser.swift */,
+				72E536572B98C153005B7646 /* Tweet.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +254,7 @@
 				725F1C4D2B975A8A0015D130 /* FirebaseFirestoreSwift */,
 				725F1C632B975A8A0015D130 /* FirebaseStorage */,
 				725F1C652B975A8A0015D130 /* FirebaseStorageCombine-Community */,
+				72E536502B98A254005B7646 /* SDWebImage */,
 			);
 			productName = TwitterClone;
 			productReference = 7236A18A2B9338AC002691CD /* TwitterClone.app */;
@@ -245,6 +286,7 @@
 			mainGroup = 7236A1812B9338AC002691CD;
 			packageReferences = (
 				725F1C302B975A8A0015D130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				72E5364F2B98A254005B7646 /* XCRemoteSwiftPackageReference "SDWebImage" */,
 			);
 			productRefGroup = 7236A18B2B9338AC002691CD /* Products */;
 			projectDirPath = "";
@@ -275,20 +317,30 @@
 			files = (
 				72620C482B95CF15008D0481 /* SearchViewController.swift in Sources */,
 				72620C522B95D2C2008D0481 /* Extensions.swift in Sources */,
+				72E536562B98BD94005B7646 /* TweetComposeViewController.swift in Sources */,
 				72AD2D3A2B95EF1A00611832 /* ProfileViewController.swift in Sources */,
 				72620C4C2B95CF2A008D0481 /* DirectMessageViewController.swift in Sources */,
 				725F1C712B97729B0015D130 /* AuthManager.swift in Sources */,
 				72620C4F2B95D0E1008D0481 /* TweetTableViewCell.swift in Sources */,
+				72E5364A2B98780C005B7646 /* ProfileDataFormViewViewModel.swift in Sources */,
 				72620C462B95CF08008D0481 /* HomeViewController.swift in Sources */,
+				72E5364E2B989E7D005B7646 /* ProfileViewViewModel.swift in Sources */,
+				72E536422B9869E2005B7646 /* TwitterUser.swift in Sources */,
+				72E536582B98C153005B7646 /* Tweet.swift in Sources */,
+				72E536442B986A7F005B7646 /* DatabaseManager.swift in Sources */,
 				725F1C6E2B976B350015D130 /* AuthenticationViewViewModel.swift in Sources */,
+				72E5365A2B98C1CC005B7646 /* TweetComposeViewViewModel.swift in Sources */,
 				7236A1922B9338AC002691CD /* MainTabViewController.swift in Sources */,
 				725F1C692B975BBA0015D130 /* OnboardingViewController.swift in Sources */,
+				72E5364C2B9893D0005B7646 /* StorageManager.swift in Sources */,
 				72620C4A2B95CF21008D0481 /* NotificationViewController.swift in Sources */,
 				7236A18E2B9338AC002691CD /* AppDelegate.swift in Sources */,
 				722642822B979A5E00D93023 /* LoginViewController.swift in Sources */,
 				725F1C6B2B975FF50015D130 /* RegisterViewController.swift in Sources */,
+				72E536482B98772C005B7646 /* ProfileDataFormViewController.swift in Sources */,
 				7236A1902B9338AC002691CD /* SceneDelegate.swift in Sources */,
 				725F1C2D2B96FD960015D130 /* ProfileTableViewHeader.swift in Sources */,
+				72E536462B9873FE005B7646 /* HomeViewViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +563,14 @@
 				minimumVersion = 10.22.0;
 			};
 		};
+		72E5364F2B98A254005B7646 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.19.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -558,6 +618,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 725F1C302B975A8A0015D130 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		72E536502B98A254005B7646 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 72E5364F2B98A254005B7646 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

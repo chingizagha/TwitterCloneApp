@@ -8,8 +8,13 @@
 import UIKit
 import FirebaseAuth
 import Firebase
+import Combine
 
 class HomeViewController: UIViewController {
+    
+    private var viewModel = HomeViewViewModel()
+    private var subscriptions: Set<AnyCancellable> = []
+    private var tweets: [Tweet] = []
     
     private func configureNavigationBar() {
         let size: CGFloat = 36
@@ -27,6 +32,26 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "rectangle.portrait.and.arrow.right"), style: .plain, target: self, action: #selector(didTapSignOut))
     }
     
+    private lazy var composeTweetButton: UIButton = {
+        let button = UIButton(type: .system, primaryAction: UIAction{ [weak self] _ in
+            self?.navigateToTweetComopser()
+        })
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor.twitterBlue
+        button.tintColor = .white
+        let plusSign = UIImage(systemName: "plus", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18, weight: .bold))
+        button.setImage(plusSign, for: .normal)
+        button.layer.cornerRadius = 30
+        button.clipsToBounds = true
+        return button
+    }()
+    
+    private func navigateToTweetComopser(){
+        let vc = UINavigationController(rootViewController: TweetComposeViewController())
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true)
+    }
+    
     @objc
     private func didTapSignOut() {
         try? Auth.auth().signOut()
@@ -41,10 +66,12 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(timelineTableView)
+        view.addSubviews(timelineTableView, composeTweetButton)
         timelineTableView.delegate = self
         timelineTableView.dataSource = self
         configureNavigationBar()
+        bindViews()
+        addConstraints()
     }
     
     override func viewDidLayoutSubviews() {
@@ -57,6 +84,7 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
         handleAuthentication()
+        viewModel.retreiveUser()
     }
     
     private func handleAuthentication() {
@@ -72,9 +100,39 @@ class HomeViewController: UIViewController {
         let vc = ProfileViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func bindViews(){
+        viewModel.$user.sink { [weak self] user in
+            guard let user = user else {return}
+            if !user.isUserOnboarded {
+                self?.completeUserOnboarding()
+            }
+        }
+        .store(in: &subscriptions)
+        
+        viewModel.$tweets.sink { [weak self] tweets in
+            self?.tweets = tweets
+            DispatchQueue.main.async {
+                self?.timelineTableView.reloadData()
+            }
+        }
+        .store(in: &subscriptions)
+    }
+    
+    func completeUserOnboarding(){
+        let vc = ProfileDataFormViewController()
+        present(vc, animated: true)
+    }
 
     
-
+    private func addConstraints(){
+        NSLayoutConstraint.activate([
+            composeTweetButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            composeTweetButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -120),
+            composeTweetButton.widthAnchor.constraint(equalToConstant: 60),
+            composeTweetButton.heightAnchor.constraint(equalToConstant: 60)
+        ])
+    }
 
 }
 
@@ -82,11 +140,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return tweets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as? TweetTableViewCell else {fatalError()}
+        let tweet = tweets[indexPath.row]
+        cell.configure(with: tweet)
         return cell
     }
     

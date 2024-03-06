@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol TweetTableViewCellDelegate: AnyObject {
     func tweetTableViewCellDidTapReply()
@@ -165,6 +166,13 @@ class TweetTableViewCell: UITableViewCell {
         retweetButton.addTarget(self, action: #selector(didTapRetweet), for: .touchUpInside)
         likeButton.addTarget(self, action: #selector(didTapLike), for: .touchUpInside)
         shareButton.addTarget(self, action: #selector(didTapShare), for: .touchUpInside)
+    }
+    
+    public func configure(with tweet: Tweet){
+        avatarImageView.sd_setImage(with: URL(string: tweet.author.avatarPath))
+        displayNameLabel.text = tweet.author.displayName
+        usernameLabel.text = "@\(tweet.author.username)" 
+        tweetTextContentlabel.text = tweet.tweetContent
     }
     
     

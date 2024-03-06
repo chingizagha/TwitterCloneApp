@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class ProfileTableViewHeader: UIView {
     
@@ -73,7 +74,7 @@ class ProfileTableViewHeader: UIView {
     }()
     
     
-    private let usernameLabel: UILabel = {
+    private var usernameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 18, weight: .regular)
@@ -82,7 +83,7 @@ class ProfileTableViewHeader: UIView {
         return label
     }()
     
-    private let displayNameLabel: UILabel = {
+    private var displayNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 22, weight: .bold)
         label.text = "Chingiz"
@@ -91,7 +92,7 @@ class ProfileTableViewHeader: UIView {
         return label
     }()
     
-    private let userBioLabel: UILabel = {
+    private var userBioLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.numberOfLines = 3
@@ -100,7 +101,7 @@ class ProfileTableViewHeader: UIView {
         return label
     }()
     
-    private let followingCountLabel: UILabel = {
+    private var followingCountLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.font = .systemFont(ofSize: 14, weight: .bold)
@@ -118,7 +119,7 @@ class ProfileTableViewHeader: UIView {
         return label
     }()
     
-    private let followersCountLabel: UILabel = {
+    private var followersCountLabel: UILabel = {
         let label = UILabel()
         label.textColor = .label
         label.font = .systemFont(ofSize: 14, weight: .bold)
@@ -136,7 +137,7 @@ class ProfileTableViewHeader: UIView {
         return label
     }()
     
-    private let joinedDataLabel: UILabel = {
+    private var joinedDataLabel: UILabel = {
         let label = UILabel()
         label.textColor = .secondaryLabel
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -153,14 +154,14 @@ class ProfileTableViewHeader: UIView {
         return image
     }()
     
-    let profileAvatarImageView: UIImageView = {
+    var profileAvatarImageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "person")
         //image.contentMode = .scaleAspectFit
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 40
         image.clipsToBounds = true
-        image.backgroundColor = .yellow
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -286,4 +287,22 @@ class ProfileTableViewHeader: UIView {
             indicator.heightAnchor.constraint(equalToConstant: 4)
         ])
     }
+    
+    public func configure(user: TwitterUser){
+        displayNameLabel.text = user.displayName
+        usernameLabel.text = "@\(user.username)"
+        followersCountLabel.text = "\(user.followersCount)"
+        followingCountLabel.text = "\(user.followingCount)"
+        userBioLabel.text = user.bio
+        profileAvatarImageView.sd_setImage(with: URL(string: user.avatarPath))
+        joinedDataLabel.text = "Joined \(getFormattedDate(with: user.createdOn))"
+    }
+    
+    private func getFormattedDate(with date: Date) -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM YYYY"
+        return dateFormatter.string(from: date)
+    }
+    
+    
 }
