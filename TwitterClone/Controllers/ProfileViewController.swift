@@ -11,6 +11,7 @@ import Combine
 class ProfileViewController: UIViewController {
     
     private var viewModel = ProfileViewViewModel()
+    private var tweets: [Tweet] = []
     
     private var isStatusBarHidden: Bool = true
     
@@ -76,16 +77,26 @@ class ProfileViewController: UIViewController {
             self?.headerView.configure(user: user)
         }
         .store(in: &subscriptions)
+        
+        viewModel.$tweets.sink { [weak self] tweets in
+            self?.tweets = tweets
+            DispatchQueue.main.async {
+                self?.profileTableView.reloadData()
+            }
+        }
+        .store(in: &subscriptions)
     }
 }
 
 extension ProfileViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return tweets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TweetTableViewCell.identifier, for: indexPath) as? TweetTableViewCell else {fatalError()}
+        let tweet = tweets[indexPath.row]
+        cell.configure(with: tweet)
         return cell
     }
     
